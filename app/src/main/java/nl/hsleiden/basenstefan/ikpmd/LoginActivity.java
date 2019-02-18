@@ -41,6 +41,7 @@ public class LoginActivity extends AppCompatActivity {
                 .requestIdToken("820611046383-hjb6rk3sic9fl4bubcvgevvvrd97ht40")
                 .requestEmail()
                 .build();
+
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
         FirebaseUser currentUser = mAuth.getCurrentUser();
         updateUI(currentUser);

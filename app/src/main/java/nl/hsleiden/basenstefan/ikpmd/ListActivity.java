@@ -17,6 +17,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -111,6 +114,13 @@ public class ListActivity extends AppCompatActivity
         if (id == R.id.log_out) {
             Intent intent = new Intent(this, LoginActivity.class);
             FirebaseAuth.getInstance().signOut();
+            GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                    .requestIdToken("820611046383-hjb6rk3sic9fl4bubcvgevvvrd97ht40")
+                    .requestEmail()
+                    .build();
+
+            GoogleSignInClient googleSignInClient = GoogleSignIn.getClient(this, gso);
+            googleSignInClient.signOut();
             startActivity(intent);
         }
 
