@@ -42,8 +42,6 @@ public class LoginActivity extends AppCompatActivity {
                 .requestEmail()
                 .build();
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
-
-
         FirebaseUser currentUser = mAuth.getCurrentUser();
         updateUI(currentUser);
 
@@ -113,6 +111,8 @@ public class LoginActivity extends AppCompatActivity {
         System.out.println(signInAccount);
         if (signInAccount != null) {
             Snackbar.make(findViewById(R.id.sign_in_button), "Welkom: " + signInAccount.getDisplayName(), Snackbar.LENGTH_LONG).show();
+            Intent intent = new Intent(this, ListActivity.class);
+            startActivity(intent);
         }
     }
 }
