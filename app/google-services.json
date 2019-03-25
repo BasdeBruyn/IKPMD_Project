@@ -15,11 +15,19 @@
       },
       "oauth_client": [
         {
-          "client_id": "820611046383-pgen0vh7beg006di732m382n4fosljm4.apps.googleusercontent.com",
+          "client_id": "820611046383-odkpi2jn6at1qe9tjmlcjmec7h0hak03.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "nl.hsleiden.basenstefan.ikpmd",
             "certificate_hash": "d7da703ad5b764d90a7e16f9fa6f69386478ef09"
+          }
+        },
+        {
+          "client_id": "820611046383-toq751tt31lb5igqfja0vaqaos368b05.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "nl.hsleiden.basenstefan.ikpmd",
+            "certificate_hash": "80d6359bb2125fa95b5d1d75456a90a43b47698c"
           }
         },
         {
@@ -40,7 +48,7 @@
           "status": 2,
           "other_platform_oauth_client": [
             {
-              "client_id": "820611046383-mi6d467h2stl9p04076n2o195v3g7a60.apps.googleusercontent.com",
+              "client_id": "820611046383-u45nd4cvlkf0bqcfbssvdhial4knvt3c.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
