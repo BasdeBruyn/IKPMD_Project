@@ -14,4 +14,14 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
+    <string name="SearchHint">Title</string>
+    <string name="SearchButton">Search</string>
+    <string name="PosterImgDescription">Poster Image</string>
+    <string name="ImdbRatingLabel">Imdb Rating:</string>
+    <string name="YearLabel">Year:</string>
+    <string name="TitleLabel">Title:</string>
+    <string name="PlotLabel">Plot:</string>
+    <string name="ImdbIdLabel">Imdb Id:</string>
+    <string name="AddMovieButton">Add Movie To Watchlist</string>
+    <string name="ShareButton">Share</string>
 </resources>
