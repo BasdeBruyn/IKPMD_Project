@@ -19,7 +19,6 @@ public class Movie {
     public void setYear(String year) { this.Year = year; }
     public String getImdbID() { return imdbID; }
     public void setImdbID(String imdbID) { this.imdbID = imdbID; }
-
     public String getPoster() { return Poster; }
     public void setPoster(String poster) { this.Poster = poster; }
 

@@ -10,8 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import java.util.List;
-
 import nl.hsleiden.basenstefan.ikpmd.MovieActivity;
 import nl.hsleiden.basenstefan.ikpmd.R;
 import nl.hsleiden.basenstefan.ikpmd.api.Movie;
@@ -30,16 +28,14 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.view_search_result_view, parent, false);
 
-        ViewHolder viewHolder = new ViewHolder(view);
-
-        return viewHolder;
+        return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int index) {
         try {
             Movie movie = movies[index];
-            viewHolder.movie.setText(movie.getTitle() + " (" + movie.getYear() + ")");
+            viewHolder.movie.setText(String.format("%s (%s)", movie.getTitle(), movie.getYear()));
             viewHolder.itemView.setOnClickListener(view -> {
                 Intent intent = new Intent(view.getContext(), MovieActivity.class);
                 Bundle bundle = new Bundle();

@@ -2,9 +2,9 @@ package nl.hsleiden.basenstefan.ikpmd;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Bundle;
 import android.support.v4.app.ShareCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -15,14 +15,11 @@ import android.widget.Toast;
 import com.android.volley.VolleyError;
 import com.squareup.picasso.Picasso;
 
-import java.util.Arrays;
 import java.util.List;
 
 import nl.hsleiden.basenstefan.ikpmd.api.MovieDetailed;
 import nl.hsleiden.basenstefan.ikpmd.api.MovieRepository;
-import nl.hsleiden.basenstefan.ikpmd.api.SearchResponse;
 import nl.hsleiden.basenstefan.ikpmd.movieSearch.SearchActivity;
-import nl.hsleiden.basenstefan.ikpmd.movieSearch.SearchResultAdapter;
 
 public class MovieActivity extends AppCompatActivity {
 

@@ -1,7 +1,6 @@
 package nl.hsleiden.basenstefan.ikpmd.api;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.android.volley.Response;
 import com.google.gson.reflect.TypeToken;
