@@ -99,6 +99,8 @@ public class LoginActivity extends AppCompatActivity {
             Snackbar.make(findViewById(R.id.sign_in_button), "Welkom: " + signInAccount.getDisplayName(), Snackbar.LENGTH_LONG).show();
             Intent intent = new Intent(this, ListActivity.class);
             startActivity(intent);
+        } else {
+            mGoogleSignInClient.signOut();
         }
     }
 }
