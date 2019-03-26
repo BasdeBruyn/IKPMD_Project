@@ -10,6 +10,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,6 +19,15 @@ import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 import nl.hsleiden.basenstefan.ikpmd.movieSearch.SearchActivity;
 
@@ -52,6 +62,30 @@ public class ListActivity extends AppCompatActivity
         } else {
             //TODO redirect to login activity
         }
+
+        TextView testDataPlaceholder = findViewById(R.id.testDataPlaceholder);
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference databaseReference = database.getReference(currentUser.getUid());
+        testDataPlaceholder.setText("");
+        databaseReference.addListenerForSingleValueEvent(
+                new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        if (dataSnapshot.getValue() != null) {
+                            Map<String, Object> data = (Map<String, Object>) dataSnapshot.getValue();
+                            List<String> movies = new ArrayList<>();
+                            if (data != null && data.size() > 0) {
+                                movies = new ArrayList<>(data.keySet());
+                            }
+                            testDataPlaceholder.setText(movies.toString());
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        //handle databaseError
+                    }
+                });
     }
 
     private void switchToSearch() {
