@@ -1,44 +1,37 @@
 package nl.hsleiden.basenstefan.ikpmd.api;
 
-public class MovieDetailed {
-    private String Title;
-    private String Year;
-    private String imdbID;
-    private String Poster;
+public class MovieDetailed extends Movie {
     private String imdbRating;
     private String Plot;
 
     public MovieDetailed(String Title, String Year, String imdbID, String Poster, String imdbRating, String Plot) {
-        this.Title = Title;
-        this.Year = Year;
-        this.imdbID = imdbID;
-        this.Poster = Poster;
+        super(Title, Year, imdbID, Poster);
         this.imdbRating = imdbRating;
         this.Plot = Plot;
     }
 
-    public String getTitle() { return Title; }
-    public void setTitle(String title) { Title = title; }
-    public String getYear() { return Year; }
-    public void setYear(String year) { Year = year; }
-    public String getImdbID() { return imdbID; }
-    public void setImdbID(String imdbID) { this.imdbID = imdbID; }
-    public String getPoster() { return Poster; }
-    public void setPoster(String poster) { Poster = poster; }
+    public String getTitle() { return super.getTitle(); }
+    public void setTitle(String title) { super.setTitle(title); }
+    public String getYear() { return super.getYear(); }
+    public void setYear(String year) { super.getYear(); }
+    public String getImdbID() { return super.getImdbID(); }
+    public void setImdbID(String imdbID) { super.setImdbID(imdbID); }
+    public String getPoster() { return super.getPoster(); }
+    public void setPoster(String poster) { super.setPoster(poster); }
     public String getImdbRating() { return imdbRating; }
     public void setImdbRating(String imdbRating) { this.imdbRating = imdbRating; }
     public String getPlot() { return Plot; }
-    public void setPlot(String plot) { Plot = plot; }
+    public void setPlot(String plot) { this.Plot = plot; }
 
     @Override
     public String toString() {
         return "MovieDetailed{" +
-                "Title='" + Title + '\'' +
-                ", Year='" + Year + '\'' +
+                "title='" + Title + '\'' +
+                ", year='" + Year + '\'' +
                 ", imdbID='" + imdbID + '\'' +
-                ", Poster='" + Poster + '\'' +
+                ", poster='" + Poster + '\'' +
                 ", imdbRating='" + imdbRating + '\'' +
-                ", Plot='" + Plot + '\'' +
+                ", plot='" + Plot + '\'' +
                 '}';
     }
 }

@@ -13,9 +13,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.VolleyError;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import nl.hsleiden.basenstefan.ikpmd.api.MovieDetailed;
 import nl.hsleiden.basenstefan.ikpmd.api.MovieRepository;
@@ -29,6 +35,7 @@ public class MovieActivity extends AppCompatActivity {
     private TextView imdbRating;
     private TextView plot;
     private ImageView poster;
+    String id = "";
 
     MovieDetailed movie;
 
@@ -46,7 +53,7 @@ public class MovieActivity extends AppCompatActivity {
 
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
-            final String id = bundle.getString("imdbId");
+            id = bundle.getString("imdbId");
             MovieRepository.fetchMovie(id, this, this::onResult, this::onError);
         }
 
@@ -67,7 +74,17 @@ public class MovieActivity extends AppCompatActivity {
 
         Button shareButton = findViewById(R.id.ShareButton);
         shareButton.setOnClickListener(this::onShare);
+        Button addButton = findViewById(R.id.AddMovieButton);
+        addButton.setOnClickListener(this::onClick);
 
+    }
+
+    private void onClick(View view) {
+        FirebaseUser user = getCurrentUser();
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference databaseReference = database.getReference(user.getUid());
+        if (!id.equals(""))
+            databaseReference.child(id).setValue(id);
     }
 
     private void onShare(View view) {
@@ -103,5 +120,10 @@ public class MovieActivity extends AppCompatActivity {
         finish();
         Toast.makeText(this, "Couldn't find movie!"
                 , Toast.LENGTH_LONG).show();
+    }
+
+    private FirebaseUser getCurrentUser() {
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        return mAuth.getCurrentUser();
     }
 }

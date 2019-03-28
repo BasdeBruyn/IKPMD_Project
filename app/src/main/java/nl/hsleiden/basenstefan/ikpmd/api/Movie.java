@@ -1,10 +1,10 @@
 package nl.hsleiden.basenstefan.ikpmd.api;
 
 public class Movie {
-    private String Title;
-    private String Year;
-    private String imdbID;
-    private String Poster;
+    String Title;
+    String Year;
+    String imdbID;
+    String Poster;
 
     public Movie(String Title, String Year, String imdbID, String Poster) {
         this.Title = Title;
