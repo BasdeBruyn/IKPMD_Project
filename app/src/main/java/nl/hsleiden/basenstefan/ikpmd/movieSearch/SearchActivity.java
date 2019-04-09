@@ -15,15 +15,22 @@ import android.widget.Toast;
 
 import com.android.volley.VolleyError;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import nl.hsleiden.basenstefan.ikpmd.R;
+import nl.hsleiden.basenstefan.ikpmd.api.Movie;
 import nl.hsleiden.basenstefan.ikpmd.api.MovieRepository;
 import nl.hsleiden.basenstefan.ikpmd.api.SearchResponse;
 
 public class SearchActivity extends AppCompatActivity {
     private EditText searchInput;
     private RecyclerView resultsView;
+
+    private String searchTitle;
+    private List<Movie> moviesFound = new ArrayList<>();
+    private int pageNr;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,8 +58,13 @@ public class SearchActivity extends AppCompatActivity {
     private void onSearch(View view) {
         InputMethodManager imm = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-        final String title = searchInput.getText().toString();
-        MovieRepository.searchMovie(title, this, this::onResult, this::onError);
+        searchTitle = searchInput.getText().toString();
+        pageNr = 1;
+        searchMovie();
+    }
+
+    private void searchMovie() {
+        MovieRepository.searchMovie(searchTitle, pageNr, this, this::onResult, this::onError);
     }
 
     private void onResult(SearchResponse searchResponse) {
@@ -60,11 +72,20 @@ public class SearchActivity extends AppCompatActivity {
         if (searchResponse.getSearch() == null)
             Toast.makeText(this, "No movies found!"
                     ,Toast.LENGTH_LONG).show();
-        else
-            resultsView.setAdapter(new SearchResultAdapter(searchResponse.getSearch()));
+        else {
+            int resultCount = Integer.parseInt(searchResponse.getTotalResults());
+            if (resultCount / (10 * pageNr) > 1) {
+                moviesFound.addAll(Arrays.asList(searchResponse.getSearch()));
+                pageNr ++;
+                searchMovie();
+            }
+            resultsView.setAdapter(new SearchResultAdapter(Arrays.copyOf(moviesFound.toArray(), moviesFound.size(), Movie[].class)));
+        }
     }
 
     private void onError(VolleyError volleyError) {
+        Toast.makeText(this, "No internet!"
+                ,Toast.LENGTH_LONG).show();
         Log.d("Error getting movies", volleyError.getMessage());
     }
 }

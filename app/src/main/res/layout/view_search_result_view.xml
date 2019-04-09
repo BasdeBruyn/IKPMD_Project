@@ -10,10 +10,12 @@
         android:id="@+id/Movie"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingLeft="10dp"
-        android:paddingTop="6dp"
-        android:paddingBottom="6dp"
-        android:paddingRight="10dp"
+        android:paddingLeft="16dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:paddingRight="16dp"
+        android:minHeight="72dp"
+        android:gravity="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
         android:textStyle="bold" />
 

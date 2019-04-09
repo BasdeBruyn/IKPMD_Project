@@ -168,6 +168,7 @@
 
     <Button
         android:id="@+id/AddMovieButton"
+        style="@android:style/Widget.Material.Button.Colored"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -218,6 +219,7 @@
 
     <Button
         android:id="@+id/ShareButton"
+        style="@android:style/Widget.Material.Button.Colored"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"

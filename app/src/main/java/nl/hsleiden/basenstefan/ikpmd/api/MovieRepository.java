@@ -12,13 +12,14 @@ public class MovieRepository {
     private static final String apiKey = "b2ecc309";
 
     public static void searchMovie(String title,
+                                   int pageNr,
                                    Context context,
                                    Response.Listener<SearchResponse> listener,
                                    Response.ErrorListener errorListener) {
         Type type = new TypeToken<SearchResponse>(){}.getType();
 
         GsonRequest<SearchResponse> request = new GsonRequest<>(
-                getSearchUrl(title),
+                getSearchUrl(title, pageNr),
                 type,
                 null,
                 listener,
@@ -43,8 +44,8 @@ public class MovieRepository {
         VolleyHelper.getInstance(context).addToRequestQueue(request);
     }
 
-    private static String getSearchUrl(String title) {
-        return String.format("%s?apikey=%s&s=%s&type=movie", apiUrl, apiKey, title);
+    private static String getSearchUrl(String title, int pageNr) {
+        return String.format("%s?apikey=%s&s=%s&type=movie&page=%d", apiUrl, apiKey, title, pageNr);
     }
 
     private static String getFetchUrl(String imdbId) {

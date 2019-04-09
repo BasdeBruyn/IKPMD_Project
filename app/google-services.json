@@ -29,10 +29,6 @@
             "package_name": "nl.hsleiden.basenstefan.ikpmd",
             "certificate_hash": "80d6359bb2125fa95b5d1d75456a90a43b47698c"
           }
-        },
-        {
-          "client_id": "820611046383-mi6d467h2stl9p04076n2o195v3g7a60.apps.googleusercontent.com",
-          "client_type": 3
         }
       ],
       "api_key": [
@@ -41,20 +37,13 @@
         }
       ],
       "services": {
-        "analytics_service": {
-          "status": 1
-        },
         "appinvite_service": {
-          "status": 2,
           "other_platform_oauth_client": [
             {
               "client_id": "820611046383-u45nd4cvlkf0bqcfbssvdhial4knvt3c.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
-        },
-        "ads_service": {
-          "status": 2
         }
       }
     }
