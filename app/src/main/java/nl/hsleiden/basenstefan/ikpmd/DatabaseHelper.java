@@ -1,4 +1,4 @@
-package nl.mjboere.ikpmd_college2.Database;
+package nl.hsleiden.basenstefan.ikpmd;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -33,18 +33,21 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override										// Maak je tabel met deze kolommen
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("CREATE TABLE " + DatabaseInfo.CarTables.CARTABLE + " (" +
+        db.execSQL("CREATE TABLE " + DatabaseInfo.MovieTable.MOVIETABLE + " (" +
                 BaseColumns._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                DatabaseInfo.CarColumn.MERK + " TEXT," +
-                DatabaseInfo.CarColumn.PRIJS + " TEXT," +
-                DatabaseInfo.CarColumn.KLEUR + " TEXT);"
+                DatabaseInfo.MovieColumn.TITLE + " TEXT," +
+                DatabaseInfo.MovieColumn.YEAR + " TEXT," +
+                DatabaseInfo.MovieColumn.IMDBID + " TEXT," +
+                DatabaseInfo.MovieColumn.POSTER + " TEXT," +
+                DatabaseInfo.MovieColumn.IMDBRATING + " TEXT," +
+                DatabaseInfo.MovieColumn.PLOT + " TEXT);"
         );
     }
     // CREATE TABLE CarTable (_id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, ects TEXT, grade TEXT);
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS "+ DatabaseInfo.CarTables.CARTABLE);
+        db.execSQL("DROP TABLE IF EXISTS "+ DatabaseInfo.MovieTable.MOVIETABLE);
         onCreate(db);
     }
 

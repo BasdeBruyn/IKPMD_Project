@@ -1,18 +1,17 @@
-package nl.mjboere.ikpmd_college2.Database;
-
-/**
- * Created by mjboere on 6-12-2016.
- */
+package nl.hsleiden.basenstefan.ikpmd;
 
 public class DatabaseInfo {
 
-    public class CarTables {
-        public static final String CARTABLE = "CarTable";   // NAAM VAN JE TABEL
+    public class MovieTable {
+        public static final String MOVIETABLE = "MovieTable";
     }
 
-    public class CarColumn {
-        public static final String MERK  = "merk";	// VASTE WAARDES
-        public static final String PRIJS = "prijs";	// NAAM VAN DE KOLOMMEN
-        public static final String KLEUR = "kleur";	// FINAL !
+    public class MovieColumn {
+        public static final String TITLE = "TITLE";
+        public static final String YEAR = "YEAR";
+        public static final String IMDBID = "IMDBID";
+        public static final String POSTER = "POSTER";
+        public static final String IMDBRATING = "IMDBRATING";
+        public static final String PLOT = "PLOT";
     }
 }
