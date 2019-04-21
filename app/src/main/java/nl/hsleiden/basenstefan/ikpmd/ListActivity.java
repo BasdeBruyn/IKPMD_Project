@@ -5,11 +5,9 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.NavigationView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
-import android.widget.TextView;
 
 import com.android.volley.VolleyError;
 import com.google.firebase.database.DataSnapshot;
@@ -50,12 +48,10 @@ public class ListActivity extends BaseActivity {
         resultsView = findViewById(R.id.ResultsView);
         resultsView.setLayoutManager(new LinearLayoutManager(this));
 
-        //TODO REMOVE THIS, FOR DEBUGGING ONLY
-        TextView testData = findViewById(R.id.testDataPlaceholder);
-        loadOffline(testData);
+        loadOffline();
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference databaseReference = database.getReference(currentUser.getUid());
-        databaseReference.addListenerForSingleValueEvent(new ListValueListener(testData));
+        databaseReference.addListenerForSingleValueEvent(new ListValueListener());
     }
 
     private void switchToSearch() {
@@ -72,12 +68,6 @@ public class ListActivity extends BaseActivity {
 
     private class ListValueListener implements ValueEventListener {
 
-        private final TextView testData;
-
-        public ListValueListener(TextView testData) {
-            this.testData = testData;
-        }
-
         @Override
         public void onDataChange(DataSnapshot dataSnapshot) {
             if (dataSnapshot.getValue() != null) {
@@ -91,26 +81,22 @@ public class ListActivity extends BaseActivity {
                         MovieRepository.fetchMovie(movieId, resultsView.getContext(), this::onResult, this::onError);
                     }
                 } else {
-                    //TODO add some kind of warning
-                    testData.setText("Geen data");
                 }
             }
         }
 
         private void onError(VolleyError volleyError) {
-            testData.setText(volleyError.toString());
+            //TODO add toast
         }
 
         private void onResult(MovieDetailed movieDetailed) {
             addMovieToList(movieDetailed);
             saveMovie(movieDetailed);
-            testData.setText(movieDetailed.getTitle());
         }
 
         @Override
         public void onCancelled(DatabaseError databaseError) {
-            loadOffline(testData);
-            testData.setText(databaseError.getMessage());
+            loadOffline();
         }
     }
 
@@ -119,8 +105,7 @@ public class ListActivity extends BaseActivity {
         resultsView.setAdapter(new SearchResultAdapter(Arrays.copyOf(movies.toArray(), movies.size(), Movie[].class)));
     }
 
-    private void loadOffline(TextView testData) {
-        testData.setText(movies.size() + "");
+    private void loadOffline() {
         Cursor cursor = databaseHelper.query(DatabaseInfo.MovieTable.MOVIETABLE, new String[]{"*"}, null, null, null, null, null);
         while (cursor.moveToNext()) {
             MovieDetailed movieDetailed = new MovieDetailed(

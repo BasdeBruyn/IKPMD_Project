@@ -25,12 +25,12 @@ public abstract class BaseActivity extends AppCompatActivity
 
     public void onCreate(Bundle savedInstanceState, int layout_id) {
         setContentView(layout_id);
-        View view = findViewById(layout_id);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         drawer = findViewById(R.id.common_layout);
         drawer.requestDisallowInterceptTouchEvent(true);
+        currentUser = getCurrentUser();
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close) {
             private float elevation;
@@ -53,7 +53,6 @@ public abstract class BaseActivity extends AppCompatActivity
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        currentUser = getCurrentUser();
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
