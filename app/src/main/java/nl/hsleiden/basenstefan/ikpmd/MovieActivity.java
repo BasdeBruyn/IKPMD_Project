@@ -27,7 +27,7 @@ import nl.hsleiden.basenstefan.ikpmd.api.MovieDetailed;
 import nl.hsleiden.basenstefan.ikpmd.api.MovieRepository;
 import nl.hsleiden.basenstefan.ikpmd.movieSearch.SearchActivity;
 
-public class MovieActivity extends AppCompatActivity {
+public class MovieActivity extends BaseActivity {
 
     private TextView title;
     private TextView year;
@@ -42,7 +42,7 @@ public class MovieActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_movie);
+        this.onCreate(savedInstanceState, R.layout.activity_movie);
 
         title = findViewById(R.id.TitleTxt);
         year = findViewById(R.id.YearTxt);
@@ -122,7 +122,7 @@ public class MovieActivity extends AppCompatActivity {
                 , Toast.LENGTH_LONG).show();
     }
 
-    private FirebaseUser getCurrentUser() {
+    FirebaseUser getCurrentUser() {
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         return mAuth.getCurrentUser();
     }

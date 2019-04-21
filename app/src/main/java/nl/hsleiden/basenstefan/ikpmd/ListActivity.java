@@ -4,35 +4,20 @@ import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.volley.VolleyError;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.lang.reflect.Array;
-import java.text.BreakIterator;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -44,7 +29,7 @@ import nl.hsleiden.basenstefan.ikpmd.api.MovieRepository;
 import nl.hsleiden.basenstefan.ikpmd.movieSearch.SearchActivity;
 import nl.hsleiden.basenstefan.ikpmd.movieSearch.SearchResultAdapter;
 
-public class ListActivity extends BaseActivity{
+public class ListActivity extends BaseActivity {
 
     private RecyclerView resultsView;
     DatabaseHelper databaseHelper;
@@ -65,8 +50,6 @@ public class ListActivity extends BaseActivity{
         resultsView = findViewById(R.id.ResultsView);
         resultsView.setLayoutManager(new LinearLayoutManager(this));
 
-        FirebaseUser currentUser = getCurrentUser();
-
         //TODO REMOVE THIS, FOR DEBUGGING ONLY
         TextView testData = findViewById(R.id.testDataPlaceholder);
         loadOffline(testData);
@@ -75,31 +58,9 @@ public class ListActivity extends BaseActivity{
         databaseReference.addListenerForSingleValueEvent(new ListValueListener(testData));
     }
 
-    private FirebaseUser getCurrentUser() {
-        FirebaseAuth mAuth = FirebaseAuth.getInstance();
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        if (currentUser != null) {
-            updateUI(currentUser);
-        } else {
-            //TODO redirect to login activity
-        }
-        return currentUser;
-    }
-
     private void switchToSearch() {
         Intent intent = new Intent(this, SearchActivity.class);
         startActivity(intent);
-    }
-
-    private void updateUI(FirebaseUser currentUser) {
-        NavigationView navigationView = findViewById(R.id.nav_view);
-        View header = navigationView.getHeaderView(0);
-        TextView fullname = header.findViewById(R.id.fullname);
-        TextView email = header.findViewById(R.id.email);
-        ImageView image = header.findViewById(R.id.profile_picture);
-        fullname.setText(currentUser.getDisplayName());
-        email.setText(currentUser.getEmail());
-        image.setImageURI(currentUser.getPhotoUrl());
     }
 
     @Override
@@ -126,7 +87,7 @@ public class ListActivity extends BaseActivity{
                 if (data != null && data.size() > 0) {
                     movieIds = new ArrayList<>(data.keySet());
                     for (String movieId: Arrays.copyOf(movieIds.toArray(), movieIds .size(), String[].class)) {
-                        testData.setText(movieId);
+                        databaseHelper.clearDB();
                         MovieRepository.fetchMovie(movieId, resultsView.getContext(), this::onResult, this::onError);
                     }
                 } else {
@@ -159,7 +120,7 @@ public class ListActivity extends BaseActivity{
     }
 
     private void loadOffline(TextView testData) {
-        testData.setText("OFFLINE");
+        testData.setText(movies.size() + "");
         Cursor cursor = databaseHelper.query(DatabaseInfo.MovieTable.MOVIETABLE, new String[]{"*"}, null, null, null, null, null);
         while (cursor.moveToNext()) {
             MovieDetailed movieDetailed = new MovieDetailed(

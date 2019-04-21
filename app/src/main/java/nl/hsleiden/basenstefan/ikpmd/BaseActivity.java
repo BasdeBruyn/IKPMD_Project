@@ -11,11 +11,17 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public abstract class BaseActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener  {
+
+    DrawerLayout drawer;
+    FirebaseUser currentUser;
 
     public void onCreate(Bundle savedInstanceState, int layout_id) {
         setContentView(layout_id);
@@ -23,7 +29,7 @@ public abstract class BaseActivity extends AppCompatActivity
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        DrawerLayout drawer = findViewById(R.id.common_layout);
+        drawer = findViewById(R.id.common_layout);
         drawer.requestDisallowInterceptTouchEvent(true);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close) {
@@ -46,6 +52,8 @@ public abstract class BaseActivity extends AppCompatActivity
 
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        currentUser = getCurrentUser();
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
@@ -59,8 +67,7 @@ public abstract class BaseActivity extends AppCompatActivity
             FirebaseAuth.getInstance().signOut();
             startActivity(intent);
         }
-
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        drawer.bringToFront();
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
@@ -88,5 +95,27 @@ public abstract class BaseActivity extends AppCompatActivity
         } else {
             super.onBackPressed();
         }
+    }
+
+    FirebaseUser getCurrentUser() {
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if (currentUser != null) {
+            updateUI(currentUser);
+        } else {
+            //TODO redirect to login activity
+        }
+        return currentUser;
+    }
+
+    private void updateUI(FirebaseUser currentUser) {
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        View header = navigationView.getHeaderView(0);
+        TextView fullname = header.findViewById(R.id.fullname);
+        TextView email = header.findViewById(R.id.email);
+        ImageView image = header.findViewById(R.id.profile_picture);
+        fullname.setText(currentUser.getDisplayName());
+        email.setText(currentUser.getEmail());
+        image.setImageURI(currentUser.getPhotoUrl());
     }
 }

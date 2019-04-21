@@ -43,12 +43,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 DatabaseInfo.MovieColumn.PLOT + " TEXT);"
         );
     }
-    // CREATE TABLE CarTable (_id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, ects TEXT, grade TEXT);
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS "+ DatabaseInfo.MovieTable.MOVIETABLE);
         onCreate(db);
+    }
+
+    public void clearDB () {
+        onUpgrade(mSQLDB, 0, 0);
     }
 
     public DatabaseHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version ){
