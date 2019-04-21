@@ -37,7 +37,8 @@
         </activity>
         <activity
             android:name=".movieSearch.SearchActivity"
-            android:windowSoftInputMode="adjustPan" />
+            android:label="@string/title_activity_search"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <uses-library android:name="org.apache.http.legacy" android:required="false"/>
     </application>
 </manifest>

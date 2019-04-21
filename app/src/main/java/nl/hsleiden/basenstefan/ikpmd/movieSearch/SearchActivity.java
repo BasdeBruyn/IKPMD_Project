@@ -19,12 +19,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import nl.hsleiden.basenstefan.ikpmd.BaseActivity;
 import nl.hsleiden.basenstefan.ikpmd.R;
 import nl.hsleiden.basenstefan.ikpmd.api.Movie;
 import nl.hsleiden.basenstefan.ikpmd.api.MovieRepository;
 import nl.hsleiden.basenstefan.ikpmd.api.SearchResponse;
 
-public class SearchActivity extends AppCompatActivity {
+public class SearchActivity extends BaseActivity {
     private EditText searchInput;
     private RecyclerView resultsView;
 
@@ -35,7 +36,7 @@ public class SearchActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_search);
+        super.onCreate(savedInstanceState, R.layout.activity_search);
 
         searchInput = findViewById(R.id.SearchInput);
         resultsView = findViewById(R.id.ResultsView);
