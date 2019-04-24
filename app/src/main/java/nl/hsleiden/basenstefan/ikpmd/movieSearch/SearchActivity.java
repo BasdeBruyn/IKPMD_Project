@@ -60,6 +60,7 @@ public class SearchActivity extends BaseActivity {
         InputMethodManager imm = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
         searchTitle = searchInput.getText().toString();
+        moviesFound.clear();
         pageNr = 1;
         searchMovie();
     }
@@ -79,6 +80,8 @@ public class SearchActivity extends BaseActivity {
                 moviesFound.addAll(Arrays.asList(searchResponse.getSearch()));
                 pageNr ++;
                 searchMovie();
+            } else if (resultCount <= 10) {
+                moviesFound.addAll(Arrays.asList(searchResponse.getSearch()));
             }
             resultsView.setAdapter(new SearchResultAdapter(Arrays.copyOf(moviesFound.toArray(), moviesFound.size(), Movie[].class)));
         }
