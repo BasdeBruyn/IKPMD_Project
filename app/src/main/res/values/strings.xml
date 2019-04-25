@@ -31,4 +31,7 @@
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="title_activity_search">Search</string>
+    <string name="search_movie">Search Movie</string>
+    <string name="movie_watch_list">Movie Watch List</string>
+    <string name="log_out">Log Out</string>
 </resources>

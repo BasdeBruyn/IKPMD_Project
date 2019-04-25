@@ -3,6 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
         <item
+            android:id="@+id/movie_watch_list"
+            android:title="@string/movie_watch_list" />
+        <item
+            android:id="@+id/search_movie"
+            android:title="@string/search_movie" />
+        <item
             android:id="@+id/log_out"
-            android:title="Uitloggen" />
+            android:title="@string/log_out" />
 </menu>

@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
@@ -44,6 +45,12 @@ public class ListActivity extends BaseActivity {
         loadList();
     }
 
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        loadList();
+    }
+
     private void loadList() {
         resultsView = findViewById(R.id.ResultsView);
         resultsView.setLayoutManager(new LinearLayoutManager(this));
@@ -51,7 +58,7 @@ public class ListActivity extends BaseActivity {
         loadOffline();
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference databaseReference = database.getReference(currentUser.getUid());
-        databaseReference.addListenerForSingleValueEvent(new ListValueListener());
+        databaseReference.addListenerForSingleValueEvent(new ListValueListener(this));
     }
 
     private void switchToSearch() {
@@ -67,6 +74,12 @@ public class ListActivity extends BaseActivity {
     }
 
     private class ListValueListener implements ValueEventListener {
+
+        private final ListActivity listActivity;
+
+        public ListValueListener(ListActivity listActivity) {
+            this.listActivity = listActivity;
+        }
 
         @Override
         public void onDataChange(DataSnapshot dataSnapshot) {
@@ -86,7 +99,7 @@ public class ListActivity extends BaseActivity {
         }
 
         private void onError(VolleyError volleyError) {
-            //TODO add toast
+            Snackbar.make(listActivity.drawer, "No Connection", Snackbar.LENGTH_INDEFINITE).show();
         }
 
         private void onResult(MovieDetailed movieDetailed) {

@@ -17,6 +17,8 @@ import android.widget.TextView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import nl.hsleiden.basenstefan.ikpmd.movieSearch.SearchActivity;
+
 public abstract class BaseActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener  {
 
@@ -33,7 +35,6 @@ public abstract class BaseActivity extends AppCompatActivity
         currentUser = getCurrentUser();
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close) {
-            private float elevation;
 
             @Override
             public void onDrawerClosed(View drawerView) {
@@ -64,6 +65,14 @@ public abstract class BaseActivity extends AppCompatActivity
         if (id == R.id.log_out) {
             Intent intent = new Intent(this, LoginActivity.class);
             FirebaseAuth.getInstance().signOut();
+            startActivity(intent);
+        }
+        if (id == R.id.movie_watch_list) {
+            Intent intent = new Intent(this, ListActivity.class);
+            startActivity(intent);
+        }
+        if (id == R.id.search_movie) {
+            Intent intent = new Intent(this, SearchActivity.class);
             startActivity(intent);
         }
         drawer.bringToFront();
@@ -102,7 +111,9 @@ public abstract class BaseActivity extends AppCompatActivity
         if (currentUser != null) {
             updateUI(currentUser);
         } else {
-            //TODO redirect to login activity
+            Intent intent = new Intent(this, LoginActivity.class);
+            FirebaseAuth.getInstance().signOut();
+            startActivity(intent);
         }
         return currentUser;
     }
