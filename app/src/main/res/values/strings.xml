@@ -34,4 +34,5 @@
     <string name="search_movie">Search Movie</string>
     <string name="movie_watch_list">Movie Watch List</string>
     <string name="log_out">Log Out</string>
+    <string name="remove">Remove from Watchlist</string>
 </resources>

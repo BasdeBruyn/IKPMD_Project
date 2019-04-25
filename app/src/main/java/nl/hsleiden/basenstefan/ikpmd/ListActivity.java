@@ -83,17 +83,15 @@ public class ListActivity extends BaseActivity {
 
         @Override
         public void onDataChange(DataSnapshot dataSnapshot) {
+            clear();
             if (dataSnapshot.getValue() != null) {
-                movies.clear();
                 Map<String, Object> data = (Map<String, Object>) dataSnapshot.getValue();
                 List<String> movieIds;
                 if (data != null && data.size() > 0) {
                     movieIds = new ArrayList<>(data.keySet());
                     for (String movieId: Arrays.copyOf(movieIds.toArray(), movieIds .size(), String[].class)) {
-                        databaseHelper.clearDB();
                         MovieRepository.fetchMovie(movieId, resultsView.getContext(), this::onResult, this::onError);
                     }
-                } else {
                 }
             }
         }
@@ -111,6 +109,13 @@ public class ListActivity extends BaseActivity {
         public void onCancelled(DatabaseError databaseError) {
             loadOffline();
         }
+    }
+
+    private void clear() {
+        movies.clear();
+        databaseHelper.clearDB();
+        Movie[] movies = new Movie[0];
+        resultsView.setAdapter(new SearchResultAdapter(movies));
     }
 
     private void addMovieToList(MovieDetailed movieDetailed) {
