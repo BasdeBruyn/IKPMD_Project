@@ -127,6 +127,8 @@ public class MovieActivity extends BaseActivity {
         } else {
             onAdd(view);
         }
+        Intent intent = new Intent(this, ListActivity.class);
+        startActivity(intent);
     }
 
     private void onAdd(View view) {
