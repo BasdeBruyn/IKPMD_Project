@@ -39,6 +39,8 @@ public class ListActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         super.onCreate(savedInstanceState, R.layout.activity_list);
 
+        ActivityState.setState(ActivityState.LIST);
+
         databaseHelper = DatabaseHelper.getHelper(this);
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(view -> switchToSearch());
@@ -52,6 +54,7 @@ public class ListActivity extends BaseActivity {
     }
 
     private void loadList() {
+        movies.clear();
         resultsView = findViewById(R.id.ResultsView);
         resultsView.setLayoutManager(new LinearLayoutManager(this));
 
@@ -64,13 +67,6 @@ public class ListActivity extends BaseActivity {
     private void switchToSearch() {
         Intent intent = new Intent(this, SearchActivity.class);
         startActivity(intent);
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.list, menu);
-        return true;
     }
 
     private class ListValueListener implements ValueEventListener {

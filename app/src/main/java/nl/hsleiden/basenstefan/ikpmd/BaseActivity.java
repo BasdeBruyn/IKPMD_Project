@@ -67,32 +67,16 @@ public abstract class BaseActivity extends AppCompatActivity
             FirebaseAuth.getInstance().signOut();
             startActivity(intent);
         }
-        if (id == R.id.movie_watch_list) {
-            Intent intent = new Intent(this, ListActivity.class);
-            startActivity(intent);
+        if (id == R.id.movie_watch_list && ActivityState.getState() != ActivityState.LIST) {
+            finish();
         }
-        if (id == R.id.search_movie) {
+        if (id == R.id.search_movie && ActivityState.getState() != ActivityState.SEARCH) {
             Intent intent = new Intent(this, SearchActivity.class);
             startActivity(intent);
         }
         drawer.bringToFront();
         drawer.closeDrawer(GravityCompat.START);
         return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 
     @Override

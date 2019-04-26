@@ -24,7 +24,7 @@
     <string name="ImdbIdLabel">Imdb Id:</string>
     <string name="AddMovieButton">Add Movie To Watchlist</string>
     <string name="ShareButton">Share</string>
-    <string name="title_activity_list">Te Kijken Films</string>
+    <string name="title_activity_list">Movies to watch</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_title">Android Studio</string>

@@ -51,6 +51,8 @@ public class MovieActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         this.onCreate(savedInstanceState, R.layout.activity_movie);
 
+        ActivityState.setState(ActivityState.MOVIE);
+
         title = findViewById(R.id.TitleTxt);
         year = findViewById(R.id.YearTxt);
         imdbId = findViewById(R.id.ImdbIdTxt);

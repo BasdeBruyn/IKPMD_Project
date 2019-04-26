@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import nl.hsleiden.basenstefan.ikpmd.ActivityState;
 import nl.hsleiden.basenstefan.ikpmd.BaseActivity;
 import nl.hsleiden.basenstefan.ikpmd.R;
 import nl.hsleiden.basenstefan.ikpmd.api.Movie;
@@ -37,6 +38,8 @@ public class SearchActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         super.onCreate(savedInstanceState, R.layout.activity_search);
+
+        ActivityState.setState(ActivityState.SEARCH);
 
         searchInput = findViewById(R.id.SearchInput);
         resultsView = findViewById(R.id.ResultsView);
