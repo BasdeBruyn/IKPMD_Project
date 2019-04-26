@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -43,9 +44,12 @@ public abstract class BaseActivity extends AppCompatActivity
             }
 
             @Override
-            public void onDrawerOpened(View drawerView) {
-                drawer.setZ(2);
-                super.onDrawerOpened(drawerView);
+            public void onDrawerStateChanged(int newState) {
+                if (newState == DrawerLayout.STATE_SETTLING) {
+                    if (!drawer.isDrawerOpen(GravityCompat.START)) {
+                        drawer.setZ(2);
+                    }
+                }
             }
         };
         drawer.addDrawerListener(toggle);
@@ -56,7 +60,6 @@ public abstract class BaseActivity extends AppCompatActivity
 
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
@@ -65,22 +68,32 @@ public abstract class BaseActivity extends AppCompatActivity
         if (id == R.id.log_out) {
             Intent intent = new Intent(this, LoginActivity.class);
             FirebaseAuth.getInstance().signOut();
+            ActivityState.setState(ActivityState.LOGIN);
             startActivity(intent);
         }
         if (id == R.id.movie_watch_list && ActivityState.getState() != ActivityState.LIST) {
-            finish();
+            Intent intent = new Intent(this, ListActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            ActivityState.setState(ActivityState.LIST);
+            startActivity(intent);
         }
         if (id == R.id.search_movie && ActivityState.getState() != ActivityState.SEARCH) {
             Intent intent = new Intent(this, SearchActivity.class);
+            ActivityState.setState(ActivityState.SEARCH);
             startActivity(intent);
         }
-        drawer.bringToFront();
+//        drawer.bringToFront();
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
 
     @Override
     public void onBackPressed() {
+        if (ActivityState.getState() == ActivityState.MOVIE_LIST) {
+            ActivityState.setState(ActivityState.LIST);
+        } else if (ActivityState.getState() == ActivityState.MOVIE_SEARCH) {
+            ActivityState.setState(ActivityState.SEARCH);
+        }
         DrawerLayout drawer = findViewById(R.id.common_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);

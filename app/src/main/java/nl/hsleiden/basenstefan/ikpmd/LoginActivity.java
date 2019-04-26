@@ -30,6 +30,8 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        ActivityState.setState(ActivityState.LOGIN);
+
         mAuth = FirebaseAuth.getInstance();
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken("820611046383-hjb6rk3sic9fl4bubcvgevvvrd97ht40")

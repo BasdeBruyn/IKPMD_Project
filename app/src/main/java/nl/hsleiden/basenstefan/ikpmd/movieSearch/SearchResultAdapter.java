@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import nl.hsleiden.basenstefan.ikpmd.ActivityState;
 import nl.hsleiden.basenstefan.ikpmd.MovieActivity;
 import nl.hsleiden.basenstefan.ikpmd.R;
 import nl.hsleiden.basenstefan.ikpmd.api.Movie;
@@ -41,6 +42,11 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
                 Bundle bundle = new Bundle();
                 bundle.putString("imdbId", movies[index].getImdbID());
                 intent.putExtras(bundle);
+                if (ActivityState.getState() == ActivityState.LIST) {
+                    ActivityState.setState(ActivityState.MOVIE_LIST);
+                } else {
+                    ActivityState.setState(ActivityState.MOVIE_SEARCH);
+                }
                 view.getContext().startActivity(intent);
             });
         } catch (IndexOutOfBoundsException exception){

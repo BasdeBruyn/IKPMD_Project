@@ -51,8 +51,6 @@ public class MovieActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         this.onCreate(savedInstanceState, R.layout.activity_movie);
 
-        ActivityState.setState(ActivityState.MOVIE);
-
         title = findViewById(R.id.TitleTxt);
         year = findViewById(R.id.YearTxt);
         imdbId = findViewById(R.id.ImdbIdTxt);
@@ -72,8 +70,10 @@ public class MovieActivity extends BaseActivity {
         if (data != null) {
             final List<String> params = data.getQueryParameters("imdbId");
             if (params.size() == 0) {
-                startActivity(new Intent(this, SearchActivity.class));
-                finish();
+                Intent intent = new Intent(this, ListActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                ActivityState.setState(ActivityState.LIST);
+                startActivity(intent);
                 Toast.makeText(this, "No imdbId given!"
                         , Toast.LENGTH_LONG).show();
             }

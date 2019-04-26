@@ -3,7 +3,8 @@ package nl.hsleiden.basenstefan.ikpmd;
 public enum ActivityState {
     SEARCH,
     LIST,
-    MOVIE,
+    MOVIE_SEARCH,
+    MOVIE_LIST,
     LOGIN;
 
     private static ActivityState state;
