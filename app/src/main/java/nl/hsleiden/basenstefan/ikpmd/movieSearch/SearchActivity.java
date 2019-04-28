@@ -2,7 +2,6 @@ package nl.hsleiden.basenstefan.ikpmd.movieSearch;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -73,7 +72,6 @@ public class SearchActivity extends BaseActivity {
     }
 
     private void onResult(SearchResponse searchResponse) {
-        Log.d("Movies fetched", Arrays.toString(searchResponse.getSearch()));
         if (searchResponse.getSearch() == null)
             Toast.makeText(this, "No movies found!"
                     ,Toast.LENGTH_LONG).show();
@@ -93,6 +91,5 @@ public class SearchActivity extends BaseActivity {
     private void onError(VolleyError volleyError) {
         Toast.makeText(this, "No internet!"
                 ,Toast.LENGTH_LONG).show();
-        Log.d("Error getting movies", volleyError.getMessage());
     }
 }

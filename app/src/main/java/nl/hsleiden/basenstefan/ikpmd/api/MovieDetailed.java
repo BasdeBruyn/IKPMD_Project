@@ -1,7 +1,5 @@
 package nl.hsleiden.basenstefan.ikpmd.api;
 
-import java.io.Serializable;
-
 public class MovieDetailed extends Movie {
     private String imdbRating;
     private String Plot;

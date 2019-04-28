@@ -27,7 +27,7 @@
             android:hint="@string/SearchHint" />
     </android.support.design.widget.TextInputLayout>
 
-    <android.support.v7.widget.AppCompatButton
+    <Button
         android:id="@+id/SearchButton"
         style="@android:style/Widget.Material.Button.Colored"
         android:layout_width="wrap_content"

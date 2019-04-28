@@ -5,7 +5,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ShareCompat;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -177,10 +176,9 @@ public class MovieActivity extends BaseActivity {
     }
 
     private void onError(VolleyError volleyError) {
-        Log.d("Error fetching movie", volleyError.getMessage());
         startActivity(new Intent(this, SearchActivity.class));
         finish();
-        Toast.makeText(this, "Couldn't find movie!"
+        Toast.makeText(this, "No internet!"
                 , Toast.LENGTH_LONG).show();
     }
 

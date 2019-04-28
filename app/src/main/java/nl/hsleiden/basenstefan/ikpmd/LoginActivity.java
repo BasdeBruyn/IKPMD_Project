@@ -63,7 +63,6 @@ public class LoginActivity extends AppCompatActivity {
                 firebaseAuthWithGoogle(account);
             } catch (ApiException e) {
                 // Google Sign In failed, update UI appropriately
-                Log.w(TAG, "Google sign in failed", e);
                 Snackbar.make(findViewById(R.id.sign_in_button), "Authentication Failed.", Snackbar.LENGTH_SHORT).show();
                 // ...
             }
@@ -72,7 +71,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
     private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
-        Snackbar.make(findViewById(R.id.sign_in_button), "Proberen in te loggen", Snackbar.LENGTH_SHORT).show();
+        Snackbar.make(findViewById(R.id.sign_in_button), "Trying to log in", Snackbar.LENGTH_SHORT).show();
         Log.d(TAG, "firebaseAuthWithGoogle:" + acct.getId());
 
         AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
@@ -82,7 +81,7 @@ public class LoginActivity extends AppCompatActivity {
                         // Sign in success, update UI with the signed-in user's information
                         Log.d(TAG, "signInWithCredential:success");
                         FirebaseUser user = mAuth.getCurrentUser();
-                        Snackbar.make(findViewById(R.id.sign_in_button), "Welkom: " + user.getDisplayName() , Snackbar.LENGTH_SHORT).show();
+                        Snackbar.make(findViewById(R.id.sign_in_button), "Welcome: " + user.getDisplayName() , Snackbar.LENGTH_SHORT).show();
                         updateUI(user);
                     } else {
                         // If sign in fails, display a message to the user.
@@ -98,7 +97,7 @@ public class LoginActivity extends AppCompatActivity {
     private void updateUI(FirebaseUser signInAccount) {
         System.out.println(signInAccount);
         if (signInAccount != null) {
-            Snackbar.make(findViewById(R.id.sign_in_button), "Welkom: " + signInAccount.getDisplayName(), Snackbar.LENGTH_LONG).show();
+            Snackbar.make(findViewById(R.id.sign_in_button), "Welcome: " + signInAccount.getDisplayName(), Snackbar.LENGTH_LONG).show();
             Intent intent = new Intent(this, ListActivity.class);
             startActivity(intent);
         } else {

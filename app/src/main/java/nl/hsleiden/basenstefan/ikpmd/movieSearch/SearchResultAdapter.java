@@ -49,10 +49,7 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
                 }
                 view.getContext().startActivity(intent);
             });
-        } catch (IndexOutOfBoundsException exception){
-            Log.d("SearchResultAdapter",
-                    "IndexOutOfBoundsException: " + index);
-        }
+        } catch (IndexOutOfBoundsException ignored){}
     }
 
     @Override
