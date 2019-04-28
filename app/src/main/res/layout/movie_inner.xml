@@ -69,6 +69,22 @@
         app:layout_constraintTop_toBottomOf="@+id/ImdbIdLabel"
         app:layout_constraintVertical_bias="0.013" />
 
+    <com.github.mikephil.charting.charts.PieChart
+        android:id="@+id/chart"
+        android:layout_width="173dp"
+        android:layout_height="139dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="87dp"
+        android:layout_marginEnd="209dp"
+        app:layout_constraintBottom_toTopOf="@+id/PosterImg"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.268"
+        app:layout_constraintStart_toEndOf="@+id/ImdbRatingLabel"
+        app:layout_constraintTop_toBottomOf="@+id/TitleTxt"
+        app:layout_constraintVertical_bias="0.393">
+
+    </com.github.mikephil.charting.charts.PieChart>
+
     <TextView
         android:id="@+id/PlotLabel"
         android:layout_width="wrap_content"
@@ -116,20 +132,6 @@
         app:layout_constraintStart_toEndOf="@+id/YearLabel"
         app:layout_constraintTop_toBottomOf="@+id/TitleTxt"
         app:layout_constraintVertical_bias="0.01" />
-
-    <TextView
-        android:id="@+id/ImdbRatingTxt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
-        android:textAlignment="viewStart"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/ImdbRatingLabel"
-        app:layout_constraintTop_toBottomOf="@+id/ImdbIdTxt"
-        app:layout_constraintVertical_bias="0.013" />
 
     <TextView
         android:id="@+id/ImdbIdLabel"

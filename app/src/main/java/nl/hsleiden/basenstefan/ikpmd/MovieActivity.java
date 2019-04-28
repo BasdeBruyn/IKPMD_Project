@@ -1,6 +1,7 @@
 package nl.hsleiden.basenstefan.ikpmd;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -12,6 +13,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.VolleyError;
+import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.data.PieData;
+import com.github.mikephil.charting.data.PieDataSet;
+import com.github.mikephil.charting.data.PieEntry;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -35,9 +40,9 @@ public class MovieActivity extends BaseActivity {
     private TextView title;
     private TextView year;
     private TextView imdbId;
-    private TextView imdbRating;
     private TextView plot;
     private ImageView poster;
+    private PieChart pieChart;
     String id = "";
 
     MovieDetailed movie;
@@ -49,14 +54,13 @@ public class MovieActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.onCreate(savedInstanceState, R.layout.activity_movie);
-
         title = findViewById(R.id.TitleTxt);
         year = findViewById(R.id.YearTxt);
         imdbId = findViewById(R.id.ImdbIdTxt);
-        imdbRating = findViewById(R.id.ImdbRatingTxt);
         plot = findViewById(R.id.PlotText);
         poster = findViewById(R.id.PosterImg);
         addOrRemoveButton = findViewById(R.id.AddMovieButton);
+        pieChart = findViewById(R.id.chart);
 
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
@@ -163,9 +167,26 @@ public class MovieActivity extends BaseActivity {
             title.setText(fetchedMovie.getTitle());
             year.setText(fetchedMovie.getYear());
             imdbId.setText(fetchedMovie.getImdbID());
-            imdbRating.setText(fetchedMovie.getImdbRating());
             plot.setText(fetchedMovie.getPlot());
             Picasso.get().load(fetchedMovie.getPoster()).into(poster);
+            ArrayList<PieEntry> ratings = new ArrayList<>();
+            float rating = Float.parseFloat(fetchedMovie.getImdbRating());
+            ratings.add(new PieEntry(rating, rating));
+            ratings.add(new PieEntry(10 -rating, 10 - rating));
+            ArrayList<String> labels = new ArrayList<>();
+            labels.add("");
+            labels.add("");
+            PieDataSet dataSet = new PieDataSet(ratings, "Rating");
+            List<Integer> colors = new ArrayList<>();
+            colors.add(Color.GREEN);
+            colors.add(Color.RED);
+            dataSet.setColors(colors);
+            PieData pieData = new PieData(dataSet);
+            dataSet.setSliceSpace(2f);
+            pieChart.setData(pieData);
+            pieChart.getDescription().setEnabled(false);
+            setTitle(fetchedMovie.getTitle());
+
         } else {
             startActivity(new Intent(this, SearchActivity.class));
             finish();
