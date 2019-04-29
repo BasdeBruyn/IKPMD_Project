@@ -185,6 +185,7 @@ public class MovieActivity extends BaseActivity {
             dataSet.setSliceSpace(2f);
             pieChart.setData(pieData);
             pieChart.getDescription().setEnabled(false);
+            pieChart.invalidate();
             setTitle(fetchedMovie.getTitle());
 
         } else {
